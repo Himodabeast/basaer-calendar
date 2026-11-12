@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Basaer Release Calendar</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a month-style grid (Sat→Fri, the Arabic week) from 23 Oct to 19 Nov, a sticky day panel beside it, and the coming week's briefs below. Night-sky ink with a gold "light" accent, as in the reels. */
+:root{
+  --bg:#f3f4f7; --surface:#ffffff; --ink:#151b2e; --muted:#5d6479; --line:#dde0e8; --soft:#eceef4;
+  --gold:#b8860b; --gold-soft:#f6ecd2; --today:#151b2e;
+  --c-ar:#c47a12; --c-en:#c2456b; --c-tt:#0f8f8a; --c-yt:#cf2e2e; --c-kids:#3f8f3a; --c-prep:#6a6f86;
+  --f-display:"Readex Pro","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Arabic","Readex Pro",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1220; --surface:#161b2c; --ink:#e9ebf3; --muted:#9aa1b8; --line:#2a3046; --soft:#1d2336;
+  --gold:#e0b04a; --gold-soft:#3a2f17; --today:#e9ebf3;
+  --c-ar:#e39a35; --c-en:#e56f93; --c-tt:#34c0b8; --c-yt:#f06060; --c-kids:#6cc465; --c-prep:#9ca1b8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1220; --surface:#161b2c; --ink:#e9ebf3; --muted:#9aa1b8; --line:#2a3046; --soft:#1d2336;
+  --gold:#e0b04a; --gold-soft:#3a2f17; --today:#e9ebf3;
+  --c-ar:#e39a35; --c-en:#e56f93; --c-tt:#34c0b8; --c-yt:#f06060; --c-kids:#6cc465; --c-prep:#9ca1b8; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.5}
+.wrap{max-width:1240px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0}
+h1{font-size:28px;font-weight:700;letter-spacing:-.01em}
+h2{font-size:19px;font-weight:600}
+h3{font-size:15px;font-weight:600}
+.ar{font-family:var(--f-body);direction:rtl;unicode-bidi:isolate}
+.lede{color:var(--muted);max-width:68ch;margin:6px 0 0}
+header{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:end;justify-content:space-between}
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-width:118px}
+.stat b{display:block;font-family:var(--f-display);font-size:18px;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 12px;align-items:center}
+.filters .lbl{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-right:4px}
+.chipbtn{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:4px 11px;font:500 13px var(--f-body);cursor:pointer}
+.chipbtn[aria-pressed="false"]{opacity:.45}
+.chipbtn:focus-visible,.day:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--c);flex:none}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+@media (max-width:980px){.layout{grid-template-columns:minmax(0,1fr)}}
+.calwrap{overflow-x:auto}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(118px,1fr));gap:6px;min-width:840px}
+.dow{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding:0 4px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 7px 8px;min-height:118px;display:flex;flex-direction:column;gap:4px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.day.out{background:transparent;border-style:dashed;cursor:default;opacity:.5}
+.day.future{background:linear-gradient(var(--surface),var(--surface)) padding-box;border-color:var(--gold)}
+.day.sel{box-shadow:0 0 0 2px var(--gold)}
+.day.kids-launch{background:var(--gold-soft)}
+.dhead{display:flex;justify-content:space-between;align-items:baseline;gap:4px}
+.dnum{font-family:var(--f-display);font-weight:600;font-size:15px;font-variant-numeric:tabular-nums}
+.dtag{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.dtag.t{color:var(--bg);background:var(--today);border-radius:4px;padding:0 5px}
+.dtag.p{color:var(--gold)}
+.ent{display:flex;gap:5px;align-items:center;font-size:12px;line-height:1.3;min-width:0}
+.ent .dot{width:7px;height:7px}
+.ent .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+.ent .v{font-family:var(--f-mono);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ent.hit .v{color:var(--gold);font-weight:500}
+.ent.plan .nm{font-style:italic}
+.more{font-size:11px;color:var(--muted)}
+.panel{position:sticky;top:max(12px,env(safe-area-inset-top,0px));background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.panel .when{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.prow{display:flex;flex-direction:column;gap:3px;padding-top:10px;border-top:1px solid var(--line)}
+.prow .top{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
+.prow .ttl{font-weight:600}
+.prow .hook{font-size:14px}
+.prow .meta{font-size:12px;color:var(--muted)}
+.prow .views{font-family:var(--f-mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+.status{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;border-radius:4px;padding:1px 6px;border:1px solid var(--line)}
+.status.posted{color:var(--muted)}
+.status.planned{color:var(--gold);border-color:var(--gold)}
+.status.approx{color:var(--muted);border-style:dashed}
+section{margin-top:40px}
+.sechead{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline;margin-bottom:14px}
+.sechead p{margin:0;color:var(--muted);font-size:13px}
+.briefs{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.brief{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.brief .date{font-family:var(--f-mono);font-size:12px;color:var(--gold)}
+.brief .hk{font-size:16px;font-weight:600;line-height:1.55}
+.brief dl{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:0;font-size:13px}
+.brief dt{color:var(--muted);font-size:12px;padding-top:1px}
+.brief dd{margin:0;min-width:0}
+.brief .src{font-size:12px;color:var(--muted)}
+.brief.kids{border-color:var(--c-kids)}
+.brief.flex{border-style:dashed}
+.test{display:flex;gap:4px;flex-wrap:wrap}
+.test span{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 6px;color:var(--muted)}
+.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.tl{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0}
+.tl b{font-family:var(--f-mono);font-size:12px;color:var(--c-kids);display:block}
+.tl p{margin:4px 0 0;font-size:13px}
+.tl.launch{background:var(--gold-soft);border-color:var(--gold)}
+.tl.launch b{color:var(--gold)}
+.notes{font-size:13px;color:var(--muted);max-width:80ch}
+.notes li{margin:3px 0}
+@media (prefers-reduced-motion:no-preference){.day{transition:box-shadow .15s}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div>
+    <h1>Basaer release calendar</h1>
+    <p class="lede">Everything posted from 23 Oct to 12 Nov across the four live channels, then the plan through the Basaer Kids launch on Thursday 19 Nov. Tap a day for the details. View counts were last read on 12 Nov (Arabic Instagram), 10 Nov (English Instagram and the Four paces TikTok) and 8 Nov (other TikToks).</p>
+  </div>
+  <div class="stats" id="stats"></div>
+</header>
+
+<div class="filters" id="filters"><span class="lbl">Channels</span></div>
+
+<div class="layout">
+  <div class="calwrap"><div class="cal" id="cal"></div></div>
+  <aside class="panel" id="panel" aria-live="polite"></aside>
+</div>
+
+<section>
+  <div class="sechead"><h2>The next seven days</h2><p>Each Arabic reel goes out the same evening on Instagram, TikTok and YouTube Shorts, with the English cut on @basaer.english.</p></div>
+  <div class="briefs" id="briefs"></div>
+</section>
+
+<section>
+  <div class="sechead"><h2>Basaer Kids · road to launch</h2><p>Episode 1 «سفينة نوح» · script in <span style="font-family:var(--f-mono)">Basaer Kids/01-Nuh-Safina/SCRIPT.md</span></p></div>
+  <div class="timeline" id="kids"></div>
+</section>
+
+<section>
+  <h2 style="margin-bottom:8px">Data notes</h2>
+  <ul class="notes">
+    <li>YouTube doesn't show upload dates on the Shorts tab without signing in. Shorts dates marked ≈ come from the day the subscriber count changed.</li>
+    <li>TikTok dates come from each video's ID. Per-video TikTok views now need a sign-in, so only the 8 Nov counts (and Four paces at 185K on 10 Nov) are shown.</li>
+    <li>The English cuts of Four paces and Three selves were prepared on 10 and 11 Nov. Their posting dates are marked ≈ until you confirm them.</li>
+    <li>No Arabic reel went out on Tue 27 Oct, the only missed day in the run.</li>
+  </ul>
+</section>
+</div>
+
+<script>
+const CH = {
+  ar:{name:"Arabic · Instagram", short:"AR IG", c:"--c-ar"},
+  tt:{name:"Arabic · TikTok", short:"TikTok", c:"--c-tt"},
+  yt:{name:"Arabic · YouTube", short:"YouTube", c:"--c-yt"},
+  en:{name:"English · Instagram", short:"EN IG", c:"--c-en"},
+  kids:{name:"Basaer Kids", short:"Kids", c:"--c-kids"},
+  prep:{name:"Production", short:"Prep", c:"--c-prep"}
+};
+const TODAY = "2026-11-12";
+// [date, channel, short title, views|null, hook, status, note]
+const P = [
+ ["2026-10-23","ar","Iqra",5333,"علمٌ… ينتهي بالسجود"],
+ ["2026-10-24","ar","Ash-Shi'ra star",21100,"الشِّعرى، ألمعُ نجمٍ في سماء الليل"],
+ ["2026-10-25","ar","Ismail's name",8549,"نبيٌّ سمّى ابنَه… بدعائه"],
+ ["2026-10-26","ar","Khalifa (work)",5274,"كلُّ مهنةٍ عددتَها… لكن تحتها كلِّها مهمّةٌ أكبر"],
+ ["2026-10-28","ar","Usr / Yusr",20700,"لماذا ذكر اللهُ «العُسر» مرّتين؟"],
+ ["2026-10-29","ar","Fa inni qarib",9566,"ضاقت عليك الدنيا؟ اللهُ يقول: «فإنّي قريب»."],
+ ["2026-10-30","ar","Al-'Adiyat horses",92100,"أقسمَ اللهُ بأنفاسِ «الخيل»… فعلى ماذا يُقسم؟"],
+ ["2026-10-31","ar","Malik vs Fir'awn",334000,"لماذا سمّى اللهُ حاكمَ مصر «مَلِكًا» زمنَ يوسف… و«فرعون» زمنَ موسى؟"],
+ ["2026-11-01","ar","La yukallif",12000,"مرضٌ وطردٌ ورسوب… كيف نخرج؟"],
+ ["2026-11-02","ar","At-Tariq",14200,"هل تهتزّ «السماء» حقًّا؟ وهل «الأرض» مصدوعة؟"],
+ ["2026-11-03","ar","Maryam's palm",54600,"نخلةٌ تزن أكثر من طنّ… فكيف هزّتها مريمُ عليها السلام؟"],
+ ["2026-11-04","ar","Ibrahim (hasbunallah)",13000,"لو تخلّى عنك الجميع… ماذا تقول؟"],
+ ["2026-11-05","ar","Kullun fi falak",19800,"ثلاث كلمات عن المدارات… وهي نفسها تدور كالمدار."],
+ ["2026-11-06","ar","Musa & al-Khidr",15500,"هل خسرتَ شيئًا… ثم عرفتَ لاحقًا أن الله كان يحميك؟"],
+ ["2026-11-07","ar","Ummah",23900,"تظنّ أنك وحدك لا تغيّر شيئًا؟ الله سمّى رجلًا واحدًا «أمّة»."],
+ ["2026-11-08","ar","Sulayman",66400,"لماذا طلب سليمانُ عليه السلام مُلكًا عظيمًا… مباشرةً بعد أن استغفر؟"],
+ ["2026-11-09","ar","Four paces",11400000,"لماذا قال اللهُ «امشوا» للرزق… و«فرّوا» إليه؟"],
+ ["2026-11-10","ar","Three selves (Nafs)",106000,"لماذا نُذنب… ثم نلوم أنفسنا؟"],
+ ["2026-11-11","ar","Ghayth vs Matar",29800,"لماذا قال اللهُ «غيثًا» هنا… و«مطرًا» هناك؟"],
+ ["2026-11-02","en","At-Tariq",291,"Does the sky really shake?"],
+ ["2026-11-03","en","Maryam's palm",1515,"A palm tree that weighs more than a ton…"],
+ ["2026-11-04","en","Ibrahim",23,"When everyone turns their back on you…"],
+ ["2026-11-05","en","Kullun fi falak",27,"Three words about orbits…"],
+ ["2026-11-06","en","Malik vs Fir'awn",29,"The Quran never calls Yusuf's ruler \"Pharaoh\""],
+ ["2026-11-07","en","Musa & al-Khidr",504,"Ever lost something…"],
+ ["2026-11-08","en","Al-'Adiyat horses",2283,"Why does Allah swear by the breath of horses?"],
+ ["2026-11-09","en","An-Najm pair",151,"Verses in pairs… so why does Allah name one star?"],
+ ["2026-11-10","en","Four paces EN",null,"Prepared 10 Nov","approx"],
+ ["2026-11-11","en","Three selves EN",null,"Prepared 11 Nov","approx"],
+ ["2026-11-01","tt","Malik vs Fir'awn",145,"Posted 15:05"],
+ ["2026-11-02","tt","At-Tariq",572,"Posted 17:10"],
+ ["2026-11-03","tt","Maryam's palm",6782,"Posted 19:20"],
+ ["2026-11-04","tt","Ibrahim",160,"Posted 21:51"],
+ ["2026-11-05","tt","Kullun fi falak",427,"Posted 18:49"],
+ ["2026-11-06","tt","Musa & al-Khidr",522,"Posted 20:25"],
+ ["2026-11-07","tt","Ummah",3934,"Posted 19:49"],
+ ["2026-11-08","tt","Sulayman",null,"8th TikTok by 9 Nov"],
+ ["2026-11-09","tt","Four paces",185400,"Posted 22:34 · 185K by 10 Nov"],
+ ["2026-11-10","tt","Three selves",null,"From the post kit","approx"],
+ ["2026-11-11","tt","Ghayth vs Matar",null,"From the post kit","approx"],
+ ["2026-11-08","yt","Malik vs Fir'awn Short",10000,"First Short on the channel","approx"],
+ ["2026-11-09","yt","Sulayman Short",4000,""],
+ ["2026-11-10","yt","Four paces Short",28000,""],
+ ["2026-11-11","yt","Three selves Short",1700,"","approx"],
+ ["2026-11-12","yt","Musa & al-Khidr · full story (5:06)",null,"Omar's cut, long-form 16:9","approx"],
+ ["2026-11-12","yt","Musa & al-Khidr Short",1100,"Linked to the full story","approx"],
+];
+// planned: [date, channel, title, hook, note]
+const F = [
+ ["2026-11-12","prep","Script al-'Asr + Hasbunallah","Record both narrations tonight in ElevenLabs","Approve the Noah script"],
+ ["2026-11-13","ar","Al-'Asr · four ways out","الله أقسم أننا في «خسر»… وأعطانا أربع طرقٍ للنجاة",""],
+ ["2026-11-13","tt","Al-'Asr","",""],["2026-11-13","yt","Al-'Asr Short","",""],["2026-11-13","en","Al-'Asr EN","Allah swore we are all at a loss… then gave four ways out",""],
+ ["2026-11-13","prep","Script al-Baqarah","Record the Noah narration + kids' lines",""],
+ ["2026-11-14","ar","Hasbunallah","كلمتان… قالهما إبراهيمُ في النار، وقالهما النبيُّ ﷺ أمام جيش. فماذا حدث بعدهما؟",""],
+ ["2026-11-14","tt","Hasbunallah","",""],["2026-11-14","yt","Hasbunallah Short","",""],["2026-11-14","en","Hasbunallah EN","Two words said in a fire and before an army. What happened next?",""],
+ ["2026-11-14","prep","Script Yusuf & sabr","Animate Noah episode v1",""],
+ ["2026-11-15","ar","Al-Baqarah at home","لماذا يهرب الشيطانُ من بيتٍ تُقرأ فيه سورةٌ واحدة؟",""],
+ ["2026-11-15","tt","Al-Baqarah","",""],["2026-11-15","yt","Al-Baqarah Short","",""],["2026-11-15","en","Al-Baqarah EN","Why does Shaytan flee a house where one surah is read?",""],
+ ["2026-11-15","prep","Noah v1 to Omar","Kids channel: handle, logo, banner",""],
+ ["2026-11-16","ar","Yusuf · sabrun jamil","لماذا سمّى يعقوبُ صبرَه «جميلًا»… وهو يبكي حتى ابيضّت عيناه؟",""],
+ ["2026-11-16","tt","Yusuf & sabr","",""],["2026-11-16","yt","Yusuf & sabr Short","",""],["2026-11-16","en","Yusuf & sabr EN","Why did Ya'qub call his patience \"beautiful\" while he wept?",""],
+ ["2026-11-17","ar","Four ways to speak","Flexible slot",""],
+ ["2026-11-17","prep","Noah final + thumbnail","Upload as scheduled (private → 19 Nov)",""],
+ ["2026-11-18","ar","Three hands with money","Flexible slot",""],
+ ["2026-11-18","kids","Teaser on @basaer.arabic","«سفينةُ نوح · أول حلقة من بصائر كيدز · الخميس»",""],
+ ["2026-11-19","kids","LAUNCH · «سفينة نوح» (3:40)","Episode 1 on YouTube + 0:40 Short",""],
+ ["2026-11-19","ar","Story + reel: Basaer Kids is live","Cross-post the teaser, link in bio",""],
+];
+const ALL=[...P.map(r=>({d:r[0],ch:r[1],t:r[2],v:r[3],h:r[4],st:r[5]||"posted"})),
+           ...F.map(r=>({d:r[0],ch:r[1],t:r[2],v:null,h:r[3],st:"planned",n:r[4]}))];
+const on={ar:true,tt:true,yt:true,en:true,kids:true,prep:true};
+let sel="2026-11-13";
+
+const fmt=v=>v==null?"":v>=1e6?(v/1e6).toFixed(1).replace(/\.0$/,"")+"M":v>=1e3?(v/1e3).toFixed(v>=1e5?0:1).replace(/\.0$/,"")+"K":String(v);
+const iso=d=>d.toISOString().slice(0,10);
+const D=s=>new Date(s+"T12:00:00Z");
+const nice=s=>D(s).toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",timeZone:"UTC"});
+const isAr=s=>/[؀-ۿ]/.test(s||"");
+
+// stats
+(function(){
+  const past=ALL.filter(e=>e.st!=="planned");
+  const n=k=>past.filter(e=>e.ch===k).length;
+  const total=past.filter(e=>e.ch==="ar").reduce((a,e)=>a+(e.v||0),0);
+  const s=[[n("ar"),"Arabic reels"],[fmt(total),"AR Instagram views"],[n("tt"),"TikToks"],[n("yt"),"YouTube uploads"],[n("en"),"English reels"]];
+  document.getElementById("stats").innerHTML=s.map(([b,l])=>`<div class="stat"><b>${b}</b><span>${l}</span></div>`).join("");
+})();
+
+// filters
+(function(){
+  const f=document.getElementById("filters");
+  Object.entries(CH).forEach(([k,c])=>{
+    const b=document.createElement("button");
+    b.className="chipbtn";b.id="f-"+k;b.setAttribute("aria-pressed","true");
+    b.style.setProperty("--c",`var(${c.c})`);
+    b.innerHTML=`<span class="dot"></span>${c.name}`;
+    b.onclick=()=>{on[k]=!on[k];b.setAttribute("aria-pressed",String(on[k]));render();};
+    f.appendChild(b);
+  });
+})();
+
+function entHTML(e){
+  const hit=e.v!=null&&e.v>=50000;
+  return `<div class="ent ${hit?"hit":""} ${e.st==="planned"?"plan":""}" style="--c:var(${CH[e.ch].c})"><span class="dot"></span><span class="nm">${e.t}</span>${e.v!=null?`<span class="v">${fmt(e.v)}</span>`:""}</div>`;
+}
+function render(){
+  const cal=document.getElementById("cal");
+  const start=D("2026-10-17"), end=D("2026-11-20");// Sat 17 Oct → Fri 20 Nov
+  let h=["Sat","Sun","Mon","Tue","Wed","Thu","Fri"].map(x=>`<div class="dow">${x}</div>`).join("");
+  for(let d=new Date(start);d<=end;d.setUTCDate(d.getUTCDate()+1)){
+    const s=iso(d);
+    const inRange=s>="2026-10-23"&&s<="2026-11-19";
+    const es=ALL.filter(e=>e.d===s&&on[e.ch]);
+    const fut=s>TODAY;
+    const cls=["day",inRange?"":"out",fut&&inRange?"future":"",s===sel?"sel":"",s==="2026-11-19"?"kids-launch":""].join(" ");
+    const tag=s===TODAY?`<span class="dtag t">Today</span>`:fut&&inRange?`<span class="dtag p">Plan</span>`:"";
+    const shown=es.slice(0,5);
+    h+=`<button class="${cls}" id="d-${s}" data-d="${s}" ${inRange?"":"disabled tabindex='-1'"} aria-label="${nice(s)}">
+      <div class="dhead"><span class="dnum">${d.getUTCDate()}${d.getUTCDate()===1||s==="2026-10-17"?" "+d.toLocaleDateString("en-GB",{month:"short",timeZone:"UTC"}):""}</span>${tag}</div>
+      ${shown.map(entHTML).join("")}${es.length>5?`<span class="more">+${es.length-5} more</span>`:""}
+    </button>`;
+  }
+  cal.innerHTML=h;
+  cal.querySelectorAll(".day:not(.out)").forEach(b=>b.onclick=()=>{sel=b.dataset.d;render();});
+  panel();
+}
+function panel(){
+  const es=ALL.filter(e=>e.d===sel);
+  const order=["ar","tt","yt","en","kids","prep"];
+  es.sort((a,b)=>order.indexOf(a.ch)-order.indexOf(b.ch));
+  const lbl={posted:"Posted",planned:"Planned",approx:"≈ date"};
+  document.getElementById("panel").innerHTML=`<div><div class="when">${sel>TODAY?"Planned":sel===TODAY?"Today":"Posted"}</div><h2>${nice(sel)}</h2></div>`+
+   (es.length?es.map(e=>`<div class="prow" style="--c:var(${CH[e.ch].c})">
+     <div class="top"><span class="dot"></span>${CH[e.ch].name}<span class="status ${e.st}">${lbl[e.st]}</span></div>
+     <div class="ttl">${e.t}</div>
+     ${e.h?`<div class="hook ${isAr(e.h)?"ar":""}">${e.h}</div>`:""}
+     ${e.n?`<div class="meta">${e.n}</div>`:""}
+     ${e.v!=null?`<div class="views">${e.v.toLocaleString("en-US")} views</div>`:e.st!=="planned"?`<div class="meta">Views not read</div>`:""}
+   </div>`).join(""):`<p class="meta" style="color:var(--muted)">Nothing posted this day.</p>`);
+}
+render();
+
+// briefs
+const B=[
+ {d:"Fri 13 Nov",hk:"الله أقسم أننا في «خسر»… وأعطانا أربع طرقٍ للنجاة",
+  pic:"An hourglass of sand pours over a figure. A progress row of four lights up one by one: إيمان · عمل صالح · تواصٍ بالحق · تواصٍ بالصبر. The sand slows with each.",
+  why:"The same set-of-four shape as Four paces, the reel that went viral (11.4M views). «تواصوا» needs two people, which is itself a reason to send it.",
+  end:"أرسلها لمن يوصيك بالحق 👇",src:"Al-'Asr 1–3 · al-Shafi'i: «لو تدبّر الناسُ هذه السورة لوسِعَتهم» (Ibn Kathir) · the Companions parted reciting it (al-Tabarani, al-Sahiha 2648) · script: November/Basaer-Asr/SCRIPT.md"},
+ {d:"Sat 14 Nov",hk:"كلمتان… قالهما إبراهيمُ في النار، وقالهما النبيُّ ﷺ أمام جيش. فماذا حدث بعدهما؟",
+  pic:"Fire → it turns cool. An army on the horizon → they return «لم يمسسهم سوء». Then a third scene, today: a person facing their own big thing, saying the two words.",
+  why:"An outcome hook instead of a comfort hook (the 4 Nov Ibrahim reel had a comfort hook and got 13K). Something you can act on today. Alternative hook: «نقولها حين نغضب… والأنبياء قالوها لشيءٍ آخر».",
+  end:"أرسلها لمن يواجه أمرًا أكبر منه 👇",src:"Bukhari 4563–4564 (Ibn 'Abbas) · Al 'Imran 173–174 · al-Anbiya 69 · script: November/Basaer-Hasbunallah/SCRIPT.md"},
+ {d:"Sun 15 Nov",hk:"لماذا يهرب الشيطانُ من بيتٍ تُقرأ فيه سورةٌ واحدة؟",
+  pic:"A house at night, all rooms dark. As al-Baqarah is read, room after room lights up until the whole house glows. Close on a page counter: 48 pages = 7 a day = one week.",
+  why:"Practical and family-wide: people send it to the family group. The reference reel (a podcast clip on trusting Allah, 56.9K shares on 163K likes) shows warmth and a story travel. Confirm the angle you wanted from it.",
+  end:"كم يومًا تحتاج لتختمها في بيتك؟",src:"Muslim 780 («إن الشيطان ينفر من البيت الذي تُقرأ فيه سورة البقرة») · Muslim 804 («أخذُها بركة وتركُها حسرة»)"},
+ {d:"Mon 16 Nov",hk:"لماذا سمّى يعقوبُ صبرَه «جميلًا»… وهو يبكي حتى ابيضّت عيناه؟",
+  pic:"One empty place at the table, then two. Eyes (as light) fading white. Then the shirt arrives, the light returns, and the reunion: three lights together.",
+  why:"Curiosity from an apparent contradiction (Ghayth/Matar and Malik/Fir'awn work the same way). The answer: beautiful patience means complaining only to Allah, and tears are allowed.",
+  end:"أرسلها لمن يبكي… ولا يشكو إلا لله 👇",src:"Yusuf 18, 83, 84, 86, 90 · Mujahid: «صبرٌ لا شكوى فيه» (al-Tabari, Ibn Kathir)"},
+ {d:"Tue 17 Nov",flex:true,hk:"أربعُ طرقٍ للكلام في القرآن… أيُّها كلامُك اليوم؟",
+  pic:"Four speech bubbles: سديد · معروف · كريم · ليّن. One person, four conversations.",
+  why:"A sequel slot from the 12 Nov ideas list. If an earlier reel slips, it moves here.",
+  end:"أرسلها لمن كلامُه ليّن 👇",src:"Al-Ahzab 70 · al-Baqarah 263 · al-Isra 23 · Ta-Ha 44"},
+ {d:"Wed 18 Nov",flex:true,hk:"ثلاثُ أيادٍ مع المال… أيُّها يدُك؟",
+  pic:"A closed hand, a hand thrown wide open, and a hand open just enough: the middle way.",
+  why:"Money is a universal stake, as in Four paces. A second flexible slot, posted alongside the Kids teaser.",
+  end:"أرسلها لمن يعلّمك التوازن 👇",src:"Al-Isra 29 · al-Furqan 67"},
+ {d:"Thu 19 Nov",kids:true,hk:"«سفينةُ نوح» · Basaer Kids episode 1",
+  pic:"Jiddo tells Sara and Yusuf the story on a rainy night. The ark is built in a desert while the people laugh, the animals board in pairs, «بسم الله مجراها ومرساها», the waves rise like mountains, and the ship rests on al-Judi.",
+  why:"Ends with something children can do: say «بسم الله» every time they get in the car. Nuh appears only as a gold light, the same rule as the main channel.",
+  end:"مَن يتذكّر ماذا قال نوح حين ركب السفينة؟",src:"Hud 25–48 · Nuh 1–28 · al-'Ankabut 14 · al-Qamar 11–14 · al-Isra 3"}
+];
+document.getElementById("briefs").innerHTML=B.map(b=>`<article class="brief ${b.kids?"kids":""} ${b.flex?"flex":""}">
+  <div class="date">${b.d}${b.flex?" · flexible":""}${b.kids?" · Kids launch":""}</div>
+  <div class="hk ar">${b.hk}</div>
+  <dl><dt>Picture</dt><dd>${b.pic}</dd><dt>Why</dt><dd>${b.why}</dd><dt>Close</dt><dd class="ar" style="text-align:right">${b.end}</dd></dl>
+  <div class="src">${b.src}</div>
+</article>`).join("");
+
+const K=[
+ ["Thu 12","Approve the script; pick the jiddo voice"],
+ ["Fri 13","Record the narration + 6 kids' lines"],
+ ["Sat 14","Animate the episode (16:9) + teaser (9:16)"],
+ ["Sun 15","v1 to Omar · create channel, logo, banner"],
+ ["Mon 16","Omar's refinements"],
+ ["Tue 17","Final render, thumbnail; upload scheduled, made for kids"],
+ ["Wed 18","Teaser on @basaer.arabic (reel + story)"],
+ ["Thu 19","Launch: episode + Short, story on all Basaer accounts"]
+];
+document.getElementById("kids").innerHTML=K.map((k,i)=>`<div class="tl ${i===K.length-1?"launch":""}"><b>${k[0]} Nov</b><p>${k[1]}</p></div>`).join("");
+</script>
+</body>
+</html>
