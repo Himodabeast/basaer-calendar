@@ -113,7 +113,7 @@ section{margin-top:40px}
 <header>
   <div>
     <h1>Basaer release calendar</h1>
-    <p class="lede">Everything posted from 23 Oct to 12 Nov across the four live channels, then the plan through the Basaer Kids launch on Thursday 19 Nov. Tap a day for the details. View counts were last read on 12 Nov (Arabic Instagram), 10 Nov (English Instagram and the Four paces TikTok) and 8 Nov (other TikToks).</p>
+    <p class="lede">Everything posted from 23 Oct to 12 Nov across the four live channels, then the plan through the Basaer Kids launch on Thursday 19 Nov. Updated 12 Nov: Sulayman &amp; the ant went out today, so every planned reel moved one day later. Tap a day for the details. View counts were last read on 12 Nov (Arabic Instagram), 10 Nov (English Instagram and the Four paces TikTok) and 8 Nov (other TikToks).</p>
   </div>
   <div class="stats" id="stats"></div>
 </header>
@@ -126,7 +126,7 @@ section{margin-top:40px}
 </div>
 
 <section>
-  <div class="sechead"><h2>The next seven days</h2><p>Each Arabic reel goes out the same evening on Instagram, TikTok and YouTube Shorts, with the English cut on @basaer.english.</p></div>
+  <div class="sechead"><h2>The next eight days</h2><p>Each Arabic reel goes out the same evening on Instagram, TikTok and YouTube Shorts, with the English cut on @basaer.english.</p></div>
   <div class="briefs" id="briefs"></div>
 </section>
 
@@ -207,29 +207,34 @@ const P = [
 ];
 // planned: [date, channel, title, hook, note]
 const F = [
- ["2026-11-12","prep","Script al-'Asr + Hasbunallah","Record both narrations tonight in ElevenLabs","Approve the Noah script"],
- ["2026-11-13","ar","Al-'Asr · four ways out","الله أقسم أننا في «خسر»… وأعطانا أربع طرقٍ للنجاة",""],
- ["2026-11-13","tt","Al-'Asr","",""],["2026-11-13","yt","Al-'Asr Short","",""],["2026-11-13","en","Al-'Asr EN","Allah swore we are all at a loss… then gave four ways out",""],
- ["2026-11-13","prep","Script al-Baqarah","Record the Noah narration + kids' lines",""],
- ["2026-11-14","ar","Hasbunallah","كلمتان… قالهما إبراهيمُ في النار، وقالهما النبيُّ ﷺ أمام جيش. فماذا حدث بعدهما؟",""],
- ["2026-11-14","tt","Hasbunallah","",""],["2026-11-14","yt","Hasbunallah Short","",""],["2026-11-14","en","Hasbunallah EN","Two words said in a fire and before an army. What happened next?",""],
- ["2026-11-14","prep","Script Yusuf & sabr","Animate Noah episode v1",""],
- ["2026-11-15","ar","Al-Baqarah at home","لماذا يهرب الشيطانُ من بيتٍ تُقرأ فيه سورةٌ واحدة؟",""],
- ["2026-11-15","tt","Al-Baqarah","",""],["2026-11-15","yt","Al-Baqarah Short","",""],["2026-11-15","en","Al-Baqarah EN","Why does Shaytan flee a house where one surah is read?",""],
- ["2026-11-15","prep","Noah v1 to Omar","Kids channel: handle, logo, banner",""],
- ["2026-11-16","ar","Yusuf · sabrun jamil","لماذا سمّى يعقوبُ صبرَه «جميلًا»… وهو يبكي حتى ابيضّت عيناه؟",""],
- ["2026-11-16","tt","Yusuf & sabr","",""],["2026-11-16","yt","Yusuf & sabr Short","",""],["2026-11-16","en","Yusuf & sabr EN","Why did Ya'qub call his patience \"beautiful\" while he wept?",""],
- ["2026-11-17","ar","Four ways to speak","Flexible slot",""],
+ ["2026-11-12","ar","Sulayman & the ant","لماذا أوقف سليمانُ جيشَه كلَّه… من أجل نملة؟","Posting tonight · kit: November/Basaer-Naml-Tabassum-Post.md"],
+ ["2026-11-12","tt","Sulayman & the ant","ما النعمة التي تشكر الله عليها اليوم؟",""],
+ ["2026-11-12","yt","Sulayman & the ant Short","",""],
+ ["2026-11-12","prep","Scripts done: al-'Asr + Hasbunallah","Approve the Noah script",""],
+ ["2026-11-13","en","Sulayman & the ant EN","Why did Sulayman stop his whole army… for an ant?",""],
+ ["2026-11-13","prep","Recording day","Record al-'Asr + Hasbunallah narrations · Noah narration + kids' lines","No new Arabic reel: buffer day so the next four are ready"],
+ ["2026-11-14","ar","Al-'Asr · four ways out","الله أقسم أننا في «خسر»… وأعطانا أربع طرقٍ للنجاة",""],
+ ["2026-11-14","tt","Al-'Asr","",""],["2026-11-14","yt","Al-'Asr Short","",""],["2026-11-14","en","Al-'Asr EN","Allah swore we are all at a loss… then gave four ways out",""],
+ ["2026-11-14","prep","Script al-Baqarah","Animate Noah episode v1",""],
+ ["2026-11-15","ar","Hasbunallah","كلمتان… قالهما إبراهيمُ في النار، وقالهما النبيُّ ﷺ أمام جيش. فماذا حدث بعدهما؟",""],
+ ["2026-11-15","tt","Hasbunallah","",""],["2026-11-15","yt","Hasbunallah Short","",""],["2026-11-15","en","Hasbunallah EN","Two words said in a fire and before an army. What happened next?",""],
+ ["2026-11-15","prep","Script Yusuf & sabr","Noah v1 to Omar · Kids channel: handle, logo, banner",""],
+ ["2026-11-16","ar","Al-Baqarah at home","لماذا يهرب الشيطانُ من بيتٍ تُقرأ فيه سورةٌ واحدة؟",""],
+ ["2026-11-16","tt","Al-Baqarah","",""],["2026-11-16","yt","Al-Baqarah Short","",""],["2026-11-16","en","Al-Baqarah EN","Why does Shaytan flee a house where one surah is read?",""],
+ ["2026-11-16","prep","Omar refines Noah","",""],
+ ["2026-11-17","ar","Yusuf · sabrun jamil","لماذا سمّى يعقوبُ صبرَه «جميلًا»… وهو يبكي حتى ابيضّت عيناه؟",""],
+ ["2026-11-17","tt","Yusuf & sabr","",""],["2026-11-17","yt","Yusuf & sabr Short","",""],["2026-11-17","en","Yusuf & sabr EN","Why did Ya'qub call his patience \"beautiful\" while he wept?",""],
  ["2026-11-17","prep","Noah final + thumbnail","Upload as scheduled (private → 19 Nov)",""],
- ["2026-11-18","ar","Three hands with money","Flexible slot",""],
+ ["2026-11-18","ar","Four ways to speak","Flexible slot",""],
  ["2026-11-18","kids","Teaser on @basaer.arabic","«سفينةُ نوح · أول حلقة من بصائر كيدز · الخميس»",""],
  ["2026-11-19","kids","LAUNCH · «سفينة نوح» (3:40)","Episode 1 on YouTube + 0:40 Short",""],
  ["2026-11-19","ar","Story + reel: Basaer Kids is live","Cross-post the teaser, link in bio",""],
+ ["2026-11-20","ar","Three hands with money","Flexible slot",""],
 ];
 const ALL=[...P.map(r=>({d:r[0],ch:r[1],t:r[2],v:r[3],h:r[4],st:r[5]||"posted"})),
            ...F.map(r=>({d:r[0],ch:r[1],t:r[2],v:null,h:r[3],st:"planned",n:r[4]}))];
 const on={ar:true,tt:true,yt:true,en:true,kids:true,prep:true};
-let sel="2026-11-13";
+let sel="2026-11-12";
 
 const fmt=v=>v==null?"":v>=1e6?(v/1e6).toFixed(1).replace(/\.0$/,"")+"M":v>=1e3?(v/1e3).toFixed(v>=1e5?0:1).replace(/\.0$/,"")+"K":String(v);
 const iso=d=>d.toISOString().slice(0,10);
@@ -269,7 +274,7 @@ function render(){
   let h=["Sat","Sun","Mon","Tue","Wed","Thu","Fri"].map(x=>`<div class="dow">${x}</div>`).join("");
   for(let d=new Date(start);d<=end;d.setUTCDate(d.getUTCDate()+1)){
     const s=iso(d);
-    const inRange=s>="2026-10-23"&&s<="2026-11-19";
+    const inRange=s>="2026-10-23"&&s<="2026-11-20";
     const es=ALL.filter(e=>e.d===s&&on[e.ch]);
     const fut=s>TODAY;
     const cls=["day",inRange?"":"out",fut&&inRange?"future":"",s===sel?"sel":"",s==="2026-11-19"?"kids-launch":""].join(" ");
@@ -302,34 +307,38 @@ render();
 
 // briefs
 const B=[
- {d:"Fri 13 Nov",hk:"الله أقسم أننا في «خسر»… وأعطانا أربع طرقٍ للنجاة",
+ {d:"Thu 12 Nov · today",hk:"لماذا أوقف سليمانُ جيشَه كلَّه… من أجل نملة؟",
+  pic:"Ants at the nest beneath marching boots; the wind, the glass palace; the army halts as the ants go home; Sulayman (as light) smiles; closing scene of a father kneeling to his son.",
+  why:"A curiosity hook with a concrete image (a whole army vs one ant), like Maryam's palm. Ends on gratitude and humility: something viewers can act on today.",
+  end:"أرسلها لمن زاده اللهُ نعمةً… فزاده تواضعًا 👇",src:"An-Naml 18–19 · Sad 36 · an-Naml 44 · al-Razi · al-Samarqandi · Ibn 'Ashur · al-Muyassar"},
+ {d:"Sat 14 Nov",hk:"الله أقسم أننا في «خسر»… وأعطانا أربع طرقٍ للنجاة",
   pic:"An hourglass of sand pours over a figure. A progress row of four lights up one by one: إيمان · عمل صالح · تواصٍ بالحق · تواصٍ بالصبر. The sand slows with each.",
   why:"The same set-of-four shape as Four paces, the reel that went viral (11.4M views). «تواصوا» needs two people, which is itself a reason to send it.",
   end:"أرسلها لمن يوصيك بالحق 👇",src:"Al-'Asr 1–3 · al-Shafi'i: «لو تدبّر الناسُ هذه السورة لوسِعَتهم» (Ibn Kathir) · the Companions parted reciting it (al-Tabarani, al-Sahiha 2648) · script: November/Basaer-Asr/SCRIPT.md"},
- {d:"Sat 14 Nov",hk:"كلمتان… قالهما إبراهيمُ في النار، وقالهما النبيُّ ﷺ أمام جيش. فماذا حدث بعدهما؟",
+ {d:"Sun 15 Nov",hk:"كلمتان… قالهما إبراهيمُ في النار، وقالهما النبيُّ ﷺ أمام جيش. فماذا حدث بعدهما؟",
   pic:"Fire → it turns cool. An army on the horizon → they return «لم يمسسهم سوء». Then a third scene, today: a person facing their own big thing, saying the two words.",
   why:"An outcome hook instead of a comfort hook (the 4 Nov Ibrahim reel had a comfort hook and got 13K). Something you can act on today. Alternative hook: «نقولها حين نغضب… والأنبياء قالوها لشيءٍ آخر».",
   end:"أرسلها لمن يواجه أمرًا أكبر منه 👇",src:"Bukhari 4563–4564 (Ibn 'Abbas) · Al 'Imran 173–174 · al-Anbiya 69 · script: November/Basaer-Hasbunallah/SCRIPT.md"},
- {d:"Sun 15 Nov",hk:"لماذا يهرب الشيطانُ من بيتٍ تُقرأ فيه سورةٌ واحدة؟",
+ {d:"Mon 16 Nov",hk:"لماذا يهرب الشيطانُ من بيتٍ تُقرأ فيه سورةٌ واحدة؟",
   pic:"A house at night, all rooms dark. As al-Baqarah is read, room after room lights up until the whole house glows. Close on a page counter: 48 pages = 7 a day = one week.",
   why:"Practical and family-wide: people send it to the family group. The reference reel (a podcast clip on trusting Allah, 56.9K shares on 163K likes) shows warmth and a story travel. Confirm the angle you wanted from it.",
   end:"كم يومًا تحتاج لتختمها في بيتك؟",src:"Muslim 780 («إن الشيطان ينفر من البيت الذي تُقرأ فيه سورة البقرة») · Muslim 804 («أخذُها بركة وتركُها حسرة»)"},
- {d:"Mon 16 Nov",hk:"لماذا سمّى يعقوبُ صبرَه «جميلًا»… وهو يبكي حتى ابيضّت عيناه؟",
+ {d:"Tue 17 Nov",hk:"لماذا سمّى يعقوبُ صبرَه «جميلًا»… وهو يبكي حتى ابيضّت عيناه؟",
   pic:"One empty place at the table, then two. Eyes (as light) fading white. Then the shirt arrives, the light returns, and the reunion: three lights together.",
   why:"Curiosity from an apparent contradiction (Ghayth/Matar and Malik/Fir'awn work the same way). The answer: beautiful patience means complaining only to Allah, and tears are allowed.",
   end:"أرسلها لمن يبكي… ولا يشكو إلا لله 👇",src:"Yusuf 18, 83, 84, 86, 90 · Mujahid: «صبرٌ لا شكوى فيه» (al-Tabari, Ibn Kathir)"},
- {d:"Tue 17 Nov",flex:true,hk:"أربعُ طرقٍ للكلام في القرآن… أيُّها كلامُك اليوم؟",
+ {d:"Wed 18 Nov",flex:true,hk:"أربعُ طرقٍ للكلام في القرآن… أيُّها كلامُك اليوم؟",
   pic:"Four speech bubbles: سديد · معروف · كريم · ليّن. One person, four conversations.",
   why:"A sequel slot from the 12 Nov ideas list. If an earlier reel slips, it moves here.",
   end:"أرسلها لمن كلامُه ليّن 👇",src:"Al-Ahzab 70 · al-Baqarah 263 · al-Isra 23 · Ta-Ha 44"},
- {d:"Wed 18 Nov",flex:true,hk:"ثلاثُ أيادٍ مع المال… أيُّها يدُك؟",
-  pic:"A closed hand, a hand thrown wide open, and a hand open just enough: the middle way.",
-  why:"Money is a universal stake, as in Four paces. A second flexible slot, posted alongside the Kids teaser.",
-  end:"أرسلها لمن يعلّمك التوازن 👇",src:"Al-Isra 29 · al-Furqan 67"},
  {d:"Thu 19 Nov",kids:true,hk:"«سفينةُ نوح» · Basaer Kids episode 1",
   pic:"Jiddo tells Sara and Yusuf the story on a rainy night. The ark is built in a desert while the people laugh, the animals board in pairs, «بسم الله مجراها ومرساها», the waves rise like mountains, and the ship rests on al-Judi.",
   why:"Ends with something children can do: say «بسم الله» every time they get in the car. Nuh appears only as a gold light, the same rule as the main channel.",
-  end:"مَن يتذكّر ماذا قال نوح حين ركب السفينة؟",src:"Hud 25–48 · Nuh 1–28 · al-'Ankabut 14 · al-Qamar 11–14 · al-Isra 3"}
+  end:"مَن يتذكّر ماذا قال نوح حين ركب السفينة؟",src:"Hud 25–48 · Nuh 1–28 · al-'Ankabut 14 · al-Qamar 11–14 · al-Isra 3"},
+ {d:"Fri 20 Nov",flex:true,hk:"ثلاثُ أيادٍ مع المال… أيُّها يدُك؟",
+  pic:"A closed hand, a hand thrown wide open, and a hand open just enough: the middle way.",
+  why:"Money is a universal stake, as in Four paces. A second flexible slot, moved to the day after the Kids launch.",
+  end:"أرسلها لمن يعلّمك التوازن 👇",src:"Al-Isra 29 · al-Furqan 67"}
 ];
 document.getElementById("briefs").innerHTML=B.map(b=>`<article class="brief ${b.kids?"kids":""} ${b.flex?"flex":""}">
   <div class="date">${b.d}${b.flex?" · flexible":""}${b.kids?" · Kids launch":""}</div>
