@@ -155,7 +155,7 @@ const CH = {
   kids:{name:"Basaer Kids", short:"Kids", c:"--c-kids"},
   prep:{name:"Production", short:"Prep", c:"--c-prep"}
 };
-const TODAY = "2026-11-12";
+const TODAY = "2026-11-13";
 // [date, channel, short title, views|null, hook, status, note]
 const P = [
  ["2026-10-23","ar","Iqra",5333,"علمٌ… ينتهي بالسجود"],
@@ -210,14 +210,16 @@ const F = [
  ["2026-11-12","ar","Sulayman & the ant","لماذا أوقف سليمانُ جيشَه كلَّه… من أجل نملة؟","Posting tonight · kit: November/Basaer-Naml-Tabassum-Post.md"],
  ["2026-11-12","tt","Sulayman & the ant","ما النعمة التي تشكر الله عليها اليوم؟",""],
  ["2026-11-12","yt","Sulayman & the ant Short","",""],
- ["2026-11-12","prep","Scripts done: al-'Asr + «في السماء رزقكم»","Approve the Noah script",""],
+ ["2026-11-12","prep","Scripts done: al-'Asr + Hasbunallah","Approve the Noah script",""],
  ["2026-11-13","en","Sulayman & the ant EN","Why did Sulayman stop his whole army… for an ant?",""],
- ["2026-11-13","prep","Recording day","Record al-'Asr + «في السماء رزقكم» narrations · Noah narration + kids' lines","No new Arabic reel: buffer day so the next four are ready"],
+ ["2026-11-13","ar","In the earth… and in the sky","كلُّ ما نحتاجه وضعه اللهُ في الأرض… إلا شيئًا واحدًا. فما هو؟","Posting ~20:30 · kit: November/Basaer-Ard-Sama-Post.md"],
+ ["2026-11-13","tt","In the earth… and in the sky","",""],["2026-11-13","yt","In the earth… and in the sky Short","",""],
+ ["2026-11-13","prep","Record al-'Asr narration","Noah narration + kids' lines",""],
  ["2026-11-14","ar","Al-'Asr · four ways out","الله أقسم أننا في «خسر»… وأعطانا أربع طرقٍ للنجاة",""],
  ["2026-11-14","tt","Al-'Asr","",""],["2026-11-14","yt","Al-'Asr Short","",""],["2026-11-14","en","Al-'Asr EN","Allah swore we are all at a loss… then gave four ways out",""],
  ["2026-11-14","prep","Script al-Baqarah","Animate Noah episode v1",""],
- ["2026-11-15","ar","Wa fis-sama'i rizqukum","لماذا قال اللهُ إنّ رزقك «في السماء»… لا في الأرض؟",""],
- ["2026-11-15","tt","Rizq in the sky","",""],["2026-11-15","yt","Rizq in the sky Short","",""],["2026-11-15","en","Rizq in the sky EN","Why does Allah say your provision is in the sky… not on earth?",""],
+ ["2026-11-15","ar","Hasbunallah","كلمتان… قالهما إبراهيمُ في النار، وقالهما النبيُّ ﷺ أمام جيش. فماذا حدث بعدهما؟",""],
+ ["2026-11-15","tt","Hasbunallah","",""],["2026-11-15","yt","Hasbunallah Short","",""],["2026-11-15","en","Hasbunallah EN","Two words said in a fire and before an army. What happened next?",""],
  ["2026-11-15","prep","Script Yusuf & sabr","Noah v1 to Omar · Kids channel: handle, logo, banner",""],
  ["2026-11-16","ar","Al-Baqarah at home","لماذا يهرب الشيطانُ من بيتٍ تُقرأ فيه سورةٌ واحدة؟",""],
  ["2026-11-16","tt","Al-Baqarah","",""],["2026-11-16","yt","Al-Baqarah Short","",""],["2026-11-16","en","Al-Baqarah EN","Why does Shaytan flee a house where one surah is read?",""],
@@ -234,7 +236,7 @@ const F = [
 const ALL=[...P.map(r=>({d:r[0],ch:r[1],t:r[2],v:r[3],h:r[4],st:r[5]||"posted"})),
            ...F.map(r=>({d:r[0],ch:r[1],t:r[2],v:null,h:r[3],st:"planned",n:r[4]}))];
 const on={ar:true,tt:true,yt:true,en:true,kids:true,prep:true};
-let sel="2026-11-12";
+let sel="2026-11-13";
 
 const fmt=v=>v==null?"":v>=1e6?(v/1e6).toFixed(1).replace(/\.0$/,"")+"M":v>=1e3?(v/1e3).toFixed(v>=1e5?0:1).replace(/\.0$/,"")+"K":String(v);
 const iso=d=>d.toISOString().slice(0,10);
@@ -307,18 +309,22 @@ render();
 
 // briefs
 const B=[
- {d:"Thu 12 Nov · today",hk:"لماذا أوقف سليمانُ جيشَه كلَّه… من أجل نملة؟",
+ {d:"Thu 12 Nov",hk:"لماذا أوقف سليمانُ جيشَه كلَّه… من أجل نملة؟",
   pic:"Ants at the nest beneath marching boots; the wind, the glass palace; the army halts as the ants go home; Sulayman (as light) smiles; closing scene of a father kneeling to his son.",
   why:"A curiosity hook with a concrete image (a whole army vs one ant), like Maryam's palm. Ends on gratitude and humility: something viewers can act on today.",
   end:"أرسلها لمن زاده اللهُ نعمةً… فزاده تواضعًا 👇",src:"An-Naml 18–19 · Sad 36 · an-Naml 44 · al-Razi · al-Samarqandi · Ibn 'Ashur · al-Muyassar"},
+ {d:"Fri 13 Nov · today",hk:"كلُّ ما نحتاجه وضعه اللهُ في الأرض… إلا شيئًا واحدًا. فما هو؟",
+  pic:"One man in an empty desert. With Minshawi the world builds around him: the earth unrolls, mountains drop, palms and wheat sprout, a village rises, the sea rolls in with fish and ships. Then the camera tilts up into the sky, one raindrop falls to a seed at his feet, and he ends in sujud.",
+  why:"Built on the user's concept: the causes are on the earth, the treasuries are with Allah. Sends to anyone worried about money or a job. Rendered today with the Darsho voice.",
+  end:"أرسلها لمن يقلق على رزقه 👇",src:"Al-Hijr 19–21 · an-Nahl 14 · adh-Dhariyat 22 · Ibn Kathir · al-Qurtubi · kit: November/Basaer-Ard-Sama-Post.md"},
  {d:"Sat 14 Nov",hk:"الله أقسم أننا في «خسر»… وأعطانا أربع طرقٍ للنجاة",
   pic:"An hourglass of sand pours over a figure. A progress row of four lights up one by one: إيمان · عمل صالح · تواصٍ بالحق · تواصٍ بالصبر. The sand slows with each.",
   why:"The same set-of-four shape as Four paces, the reel that went viral (11.4M views). «تواصوا» needs two people, which is itself a reason to send it.",
   end:"أرسلها لمن يوصيك بالحق 👇",src:"Al-'Asr 1–3 · al-Shafi'i: «لو تدبّر الناسُ هذه السورة لوسِعَتهم» (Ibn Kathir) · the Companions parted reciting it (al-Tabarani, al-Sahiha 2648) · script: November/Basaer-Asr/SCRIPT.md"},
- {d:"Sun 15 Nov",hk:"لماذا قال اللهُ إنّ رزقك «في السماء»… لا في الأرض؟",
-  pic:"His phone at night: a low balance, a rejection email. The camera tilts up to the sky; rain turns dry fields green. The oath: his own whispered «الحمد لله» rises as a gold sound wave. Morning: he walks to work calm and drops a coin in a charity box.",
-  why:"The follow-up to Four paces («امشوا» for rizq): you walk because it is already written. It's for anyone worried about money or a job, a huge group to send it to. The bedouin's «من ذا الذي أغضب الجليل حتى حلف؟» is a strong turn. Hasbunallah moves to the backlog.",
-  end:"أرسلها لمن يقلق على رزقه 👇",src:"Adh-Dhariyat 22–23 · al-Tabari, Ibn Kathir (rain; certainty «كما لا تشكّون في نطقكم») · al-Qurtubi, al-Kashshaf (the bedouin, weak chain: «يُروى») · script: November/Basaer-Rizq-Sama/SCRIPT.md"},
+ {d:"Sun 15 Nov",hk:"كلمتان… قالهما إبراهيمُ في النار، وقالهما النبيُّ ﷺ أمام جيش. فماذا حدث بعدهما؟",
+  pic:"Fire → it turns cool. An army on the horizon → they return «لم يمسسهم سوء». Then today: a person facing their own big thing, saying the two words.",
+  why:"An outcome hook, not a comfort hook. Back in this slot because today's reel used «وفي السماء رزقكم».",
+  end:"أرسلها لمن يواجه أمرًا أكبر منه 👇",src:"Bukhari 4563–4564 · Al 'Imran 173–174 · al-Anbiya 69 · script: November/Basaer-Hasbunallah/SCRIPT.md"},
  {d:"Mon 16 Nov",hk:"لماذا يهرب الشيطانُ من بيتٍ تُقرأ فيه سورةٌ واحدة؟",
   pic:"A house at night, all rooms dark. As al-Baqarah is read, room after room lights up until the whole house glows. Close on a page counter: 48 pages = 7 a day = one week.",
   why:"Practical and family-wide: people send it to the family group. The reference reel (a podcast clip on trusting Allah, 56.9K shares on 163K likes) shows warmth and a story travel. Confirm the angle you wanted from it.",
